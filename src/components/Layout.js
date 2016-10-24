@@ -7,7 +7,7 @@ export default class Layout extends Component {
     return (
       <div className="row">
         <ol className="breadcrumb">
-          <li className="nav"><Link to="/manage">Home</Link></li>
+          <li className="nav"><Link to="/">Home</Link></li>
           <li><Link to="/new">Add Post</Link></li>
           <li><Link to="/manage">Manage Posts</Link></li>
         </ol>

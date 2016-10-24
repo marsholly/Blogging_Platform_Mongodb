@@ -12,7 +12,7 @@ export default class HomePage extends Component {
       blogs: BlogStore.getAllBlogs()
     }
     this._onChange = this._onChange.bind(this);
-    this.createMarkup = this.createMarkup.bind(this);
+    this.markUp = this.markUp.bind(this);
   }
 
   componentWillMount() {
@@ -28,34 +28,52 @@ export default class HomePage extends Component {
     this.setState({ blogs: BlogStore.getAllBlogs() });
   }
 
-  createMarkup(blog) {
-    let {_id, author, title, content, createAt} = blog;
-    let time = moment(createAt).format('lll');
-    let str = `### ${title}
-                    > ##### Author:__${author}__
-                    > ###### Create At: ${time}
-                    > ${content}
-                    > `
-    let markedStr = marked(str);
-    // console.log('markedStr:', markedStr)
-    let markedHtml = {__html: marked(markedStr)};
-    console.log('markedHtml:', markedHtml)
-    return <div dangerouslySetInnerHTML={{markedHtml}} />
-    // return {__html: marked(markedStr)};
-  }
+  // createMarkup(blog) {
+  //   let {_id, author, title, content, createAt} = blog;
+  //   let time = moment(createAt).format('lll');
+  //   let str = `### ${title}
+  //                   > ##### Author:__${author}__
+  //                   > ###### Create At: ${time}
+  //                   > ${content}
+  //                   > `
+  //   let markedStr = marked(str);
+  //   // console.log('markedStr:', markedStr)
+  //   let markedHtml = {__html: marked(markedStr)};
+  //   console.log('markedHtml:', markedHtml)
+  //   return <div dangerouslySetInnerHTML={{markedHtml}} />
+  //   // return {__html: marked(markedStr)};
+  // }
+
+  markUp(content){
+   return {'__html': content};
+ }
 
   render() {
     let {blogs} = this.state;
+    let blocks;
     if(blogs){
-      blogs.forEach(blog => {
-        // let rows = this.createMarkup(blog);
-        // console.log('rows:', rows);
+      blocks = blogs.map(blog => {
+        let {_id, author, title, content, createAt} = blog;
+        let time = moment(createAt).format('lll');
+        return (
+          <div className="panel panel-default" key={_id}>
+            <div className="panel-heading">
+              <h3 className="panel-title">{title}</h3>
+            </div>
+            <div className="panel-body">
+              <h4>Author: {author} @ {time}</h4>
+              <div dangerouslySetInnerHTML={this.markUp(content)} />
+            </div>
+          </div>
+        )
       })
+    } else {
+      blocks = <div></div>
     }
-    // console.log('blogs:', blogs)
+
     return (
       <div className="container">
-        HomePage
+        {blocks}
       </div>
     )
   }
