@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import BlogActions from '../actions/BlogActions';
 import BlogStore from '../stores/BlogStore';
 import moment from 'moment';
+import { Modal, Button } from 'react-bootstrap';
+
 
 export default class EditPost extends Component {
   constructor() {
