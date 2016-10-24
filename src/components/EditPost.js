@@ -13,21 +13,18 @@ export default class EditPost extends Component {
       showModal: false,
       editTitle:'',
       editAuthor:'',
-      editContent: ''
+      editContent: '',
+      editId:''
     }
     this._onChange = this._onChange.bind(this);
     this.removePost = this.removePost.bind(this);
 
-    this.editNote = this.editNote.bind(this);
+    this.updatePost = this.updatePost.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.openModal = this.openModal.bind(this);
     this.saveEdit = this.saveEdit.bind(this);
     this.cancelEdit = this.cancelEdit.bind(this);
   }
-
-  // componentDidMount() {
-  //   BlogActions.getAllBlogs();
-  // }
 
   componentWillMount() {
     BlogActions.getAllBlogs();
@@ -51,7 +48,8 @@ export default class EditPost extends Component {
    this.setState({
      editTitle:blog.title,
      editAuthor:blog.author,
-     editContent: blog.content
+     editContent: blog.content,
+     editId:blog._id
    });
  }
 
@@ -121,7 +119,7 @@ export default class EditPost extends Component {
             <textarea className ='form-control' rows="3" value={this.state.editContent} onChange={e => {this.setState({editContent: e.target.value}) }}></textarea>
           </Modal.Body>
           <Modal.Footer>
-            <Button className="btn btn-primary" onClick={() => this.saveEdit(_id)}>Save</Button>
+            <Button className="btn btn-primary" onClick={() => this.saveEdit(this.state.editId)}>Save</Button>
             <Button onClick={this.cancelEdit}>Close</Button>
           </Modal.Footer>
         </Modal>
