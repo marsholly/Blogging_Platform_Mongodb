@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import BlogActions from '../actions/BlogActions';
+import {browserHistory} from 'react-router';
 
 export default class NewPost extends Component {
   constructor() {
@@ -18,6 +19,7 @@ export default class NewPost extends Component {
       content
     }
     BlogActions.createNewBlog(newBlog);
+    browserHistory.push({pathname: '/'})
   }
 
   render() {
