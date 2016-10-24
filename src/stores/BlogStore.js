@@ -11,7 +11,8 @@ class BlogStore extends EventEmitter {
     AppDispatcher.register(action => {
       switch (action.type) {
         case 'RECEIVE_ALL_BLOGS':
-          _blogs = action.payload.blogs;
+          let blogs = action.payload.blogs;
+          _blogs = blogs.sort((a,b) => new Date(b.createAt) - new Date(a.createAt));
           this.emit('CHANGE');
           break;
         case 'RECEIVE_ONE_BLOG':
