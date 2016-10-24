@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 
 
-export default class HomePage extends Component {
+export default class EditPost extends Component {
   render() {
     return (
       <div className="container">
-        HomePage
+        EditPost
       </div>
     )
   }
